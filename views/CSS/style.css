@@ -3,32 +3,27 @@ body {
     background-color: #191919;
 }
 
-.userAuthenth {
-    padding: 16px;
-}
-
-.goToLogin {
-    padding: 16px;
-    text-align: left;
+#registerForm, #loginForm {
+    margin: auto;
+    margin-top: 100px;
+    display: table;
 }
 
 input[type=text], input[type=password] {
-    width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
-    display: inline-block;
+    display: block;
     border: none;
     background: #f1f1f1;
 }
 
-.userAuthenth label, .goToLogin p  {
+p, h2 {
     color: white;
 }
 
-.goToLogin a {
+a {
     color: blueviolet;
 }
-
 #navBar ul li a {
     color: white;
     display: block;
@@ -57,6 +52,16 @@ input[type=text], input[type=password] {
     padding: 16px 20px;
     margin: 8px 0;
     border: none;
-    width: 25%;
     opacity: 0.9;
+    cursor: pointer;
+}
+
+.errorWarnings ul {
+    color: white;
+    list-style-type: none;
+}
+
+.contentPage {
+    color: white;
+    text-align: center;
 }
