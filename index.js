@@ -72,7 +72,6 @@ app.post('/register', async function(req, res) {
                 if (err) {
                     throw err;
                 }
-                console.log(results.rows);
                 if (results.rows.length > 0) {
                     errors.push({ message: "Email or Username already used." });
                     res.render('register', { errors });
