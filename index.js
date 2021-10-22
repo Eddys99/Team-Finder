@@ -67,19 +67,20 @@ app.post('/register', async function(req, res) {
         });
     } else {
         let hashedPassword = await bcrypt.hash(password, 10);
-        client.query(`SELECT * FROM users WHERE email = $1`, [email],
+        client.query(`SELECT * FROM users WHERE email = $1 OR username = $2`, [email, username],
             function (err, results) {
                 if (err) {
                     throw err;
                 }
+                console.log(results.rows);
                 if (results.rows.length > 0) {
-                    errors.push({ message: "Email already used." });
+                    errors.push({ message: "Email or Username already used." });
                     res.render('register', { errors });
                 } else {
-                    client.query(
-                        `INSERT INTO users (email, username, password)
+                    client.query(`INSERT INTO users (email, username, password)
                         VALUES ($1, $2, $3)
-                        RETURNING id, password`, [email, username, hashedPassword], (err,results) => {
+                        RETURNING id, password`, [email, username, hashedPassword],
+                        function (err,results) {
                             if (err) {
                                 throw err;
                             }
