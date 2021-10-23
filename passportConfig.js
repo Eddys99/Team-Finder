@@ -21,7 +21,7 @@ function initialize(passport) {
                     }
                 });
             } else {
-                return done(null, false, { message: "Email is not registered" })
+                return done(null, false, { message: "Email is not registered" });
             }
         });
     };
