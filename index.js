@@ -62,9 +62,7 @@ app.post('/register', async function(req, res) {
         errors.push({ message: "Passwords do not match." });
     }
     if (errors.length > 0) {
-        res.render('register', {
-            errors: errors 
-        });
+        res.render('register', { errors: errors  });
     } else {
         let hashedPassword = await bcrypt.hash(password, 10);
         client.query(`SELECT * FROM users WHERE email = $1 OR username = $2`, [email, username],
