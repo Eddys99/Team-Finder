@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    form(action = "/login", method = "POST")#loginForm
+    form(action = "/login", method = "POST", autocomplete = "off")#loginForm
         div.errorWarnings
             if messages.succesMsg != null
                 ul
