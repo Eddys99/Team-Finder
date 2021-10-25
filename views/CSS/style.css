@@ -16,7 +16,7 @@ input[type=text], input[type=password] {
     display: block;
     border: none;
     background: #191919;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(68, 68, 68);
     color: white;
     outline-width: 0;
 }

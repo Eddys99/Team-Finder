@@ -3,7 +3,7 @@ const { client } = require('./database');
 const bcrypt = require('bcrypt');
 
 function initialize(passport) {
-    const autheticateUser = (email, password, done) => {
+    const authenticateUser = (email, password, done) => {
         client.query(`SELECT * FROM users WHERE email = $1`, [email], function(err, results) {
             if (err) {
                 throw err;
@@ -30,7 +30,7 @@ function initialize(passport) {
         new LocalStrategy({
             usernameField: "email",
             passwordField: "password"
-        }, autheticateUser )
+        }, authenticateUser )
     );
     passport.serializeUser((user, done) => done(null, user.id));
     passport.deserializeUser((id, done) => {
