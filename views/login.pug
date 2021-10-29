@@ -3,9 +3,9 @@ extends layout
 block content
     form(action = "/login", method = "POST", autocomplete = "off")#loginForm
         div.errorWarnings
-            if messages.succesMsg != null
+            if messages.message != null
                 ul
-                    li= messages.succesMsg
+                    li= messages.message
             else if messages.error != null 
                 ul 
                     li= messages.error

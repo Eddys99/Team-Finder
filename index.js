@@ -27,24 +27,41 @@ app.use(passport.session());
 
 //GET
 app.get('/', function(req, res) {
-    res.render('home');
+    if (req.user) {
+        res.redirect('/profile');
+    } else {
+        res.render('home');
+    }
 });
 
 app.get('/register', function(req, res) {
-    res.render('register');
+    if (req.user) {
+        res.redirect('/profile');
+    } else {
+        res.render('register');
+    }
 });
 
 app.get('/login', function(req, res) {
-    res.render('login');
+    if (req.user) {
+        res.redirect('/profile');
+    } else {
+        res.render('login');
+    }
 });
 
 app.get('/profile', function(req, res) {
-    res.render('profile', { user: req.user.username });
+    if (req.user) {
+        res.render('profile', { user: req.user.username });
+    } else {
+        req.flash("message", "Please log in or register");
+        res.redirect('/login');
+    }
 });
 
 app.get('/logout', function(req, res) {
     req.logOut();
-    req.flash("succesMsg", "You logged out.");
+    req.flash("message", "You logged out.");
     res.redirect('/login');
 });
 
@@ -81,7 +98,7 @@ app.post('/register', async function(req, res) {
                             if (err) {
                                 throw err;
                             }
-                            req.flash('succesMsg', "You are now registered! Please log in.");
+                            req.flash('message', "You are now registered! Please log in.");
                             res.redirect('/login');
                         }
                     )

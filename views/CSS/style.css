@@ -30,17 +30,20 @@ a {
     padding: 8px;
     text-decoration: none;
     color: white;
+
+    background-color: blueviolet;
+    padding: 10px 15px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-radius: 25px;
+    opacity: 0.9;
+    border: none;
 }
 
 #navBar ul li {
     display: inline;
     float: right;
-    padding-right: 25px;
-    padding-left: 25px;
     margin: 10px;
-    border: none blueviolet;
-    border-radius: 25px;
-    background-color:blueviolet;
 }
 
 ul {
@@ -51,6 +54,8 @@ ul {
     background-color: blueviolet;
     color: white;
     padding: 10px 15px;
+    padding-right: 25px;
+    padding-left: 25px;
     margin: 8px 0;
     border: none;
     border-radius: 25px;
