@@ -1,0 +1,18 @@
+extends layouts/layout.pug
+
+block content
+    header
+        div#navBar
+            nav
+                ul 
+                    li
+                        a(href = "/profile") Back to profile
+    div#editForm
+        h2 Edit profile
+        form(action = "/profile/edit", method = "POST" autocomplete = "off")
+            input(type = "text", name = "division", placeholder = "Division")
+            input(type = "text", name = "main_lanes", placeholder = "Main lane(s)")
+            input(type = "text", name = "main_champs", placeholder = "Main Champion(s)")
+            input(type = "text", name = "spoken_language", placeholder = "Spoken language(s)")
+            input(type = "text", name = "region", placeholder = "Region")
+            button(type = "submit", class = "btn") Submit edit

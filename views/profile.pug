@@ -1,6 +1,19 @@
-extends layout
+extends layouts/layout.pug
 
 block content
-    div#navBar
-        h2 #{user}
-        a(href = "/logout").btn Log out
+    header
+        div#navBar
+            nav
+                ul
+                    li
+                        a(href = "/logout") Log out
+                    li
+                        a(href = "/profile/edit") Edit
+    
+    div#profileContent
+        h3(align = "left") Username: #{user}
+        h3(align = "left") Actual Division (Solo / Duo rank): #{division}
+        h3(align = "left") Main lane(s): #{lanes}
+        h3(align = "left") Main Champion(s): #{champs}
+        h3(align = "left") Spoken language(s): #{language}
+        h3(align = "left") Region: #{region}

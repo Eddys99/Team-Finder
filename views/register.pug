@@ -1,17 +1,18 @@
-extends layout
+extends layouts/layout.pug
 
 block content
-    form(action = "/register", method = "POST", autocomplete = "off")#registerForm
-        div.errorWarnings
-            if errors != null
-                ul
-                    each error in errors
-                        li= error.message
+    div#registerForm
         h2 Register
-        input(type = "text", name = "email", placeholder = "Email")
-        input(type = "text", name = "username", placeholder = "Username")
-        input(type = "password", name = "password", placeholder = "Password")
-        input(type = "password", name = "password2", placeholder = "Confirm Password")
-        button(type = "submit" class = "btn") Register
-        p Already have an account? 
-            a(href = "login") Sign in
+        form(action = "/register", method = "POST", autocomplete = "off")
+            div.errorWarnings
+                if errors != null
+                    ul
+                        each error in errors
+                            li= error.message
+            input(type = "text", name = "email", placeholder = "Email")
+            input(type = "text", name = "username", placeholder = "Username")
+            input(type = "password", name = "password", placeholder = "Password")
+            input(type = "password", name = "password2", placeholder = "Confirm Password")
+            button(type = "submit" class = "btn") Register
+            p Already have an account? 
+                a(href = "login") Sign in

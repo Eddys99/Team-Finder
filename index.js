@@ -52,7 +52,14 @@ app.get('/login', function(req, res) {
 
 app.get('/profile', function(req, res) {
     if (req.user) {
-        res.render('profile', { user: req.user.username });
+        res.render('profile', { 
+            user: req.user.username, 
+            division: req.user.division,
+            lanes: req.user.main_lanes,
+            champs: req.user.main_champs,
+            language: req.user.spoken_language,
+            region: req.user.region
+        });
     } else {
         req.flash("message", "Please log in or register");
         res.redirect('/login');
@@ -63,6 +70,14 @@ app.get('/logout', function(req, res) {
     req.logOut();
     req.flash("message", "You logged out.");
     res.redirect('/login');
+});
+
+app.get('/profile/edit', function(req, res) {
+    if (req.user) {
+        res.render('editProfile');
+    } else {
+        res.redirect('/login');
+    }
 });
 
 //POST
@@ -105,6 +120,26 @@ app.post('/register', async function(req, res) {
                 }
             }
         );
+    }
+});
+
+app.post('/profile/edit', function(req, res) {
+    let username = req.user.username;
+    let { division, main_lanes, main_champs, spoken_language, region} = req.body;
+    if (division != '') {
+        client.query(`UPDATE users SET division = $1 WHERE username = $2 `, [division, username]);
+    }
+    if (main_lanes != '') {
+        client.query(`UPDATE users SET main_lanes = $1 WHERE username = $2 `, [main_lanes, username]);
+    }
+    if (main_champs != '') {
+        client.query(`UPDATE users SET main_champs = $1 WHERE username = $2 `, [main_champs, username]);
+    }
+    if (spoken_language != '') {
+        client.query(`UPDATE users SET spoken_language = $1 WHERE username = $2 `, [spoken_language, username]);
+    }
+    if (region != '') {
+        client.query(`UPDATE users SET region = $1 WHERE username = $2 `, [region, username]);
     }
 });
 

@@ -1,9 +1,11 @@
-extends layout 
+extends layouts/layout.pug 
 
 block content
-    div#navBar
-        ul 
-            li
-                a(href = "register") Register 
-            li 
-                a(href = "login") Login
+    header
+        div#navBar
+            nav
+                ul 
+                    li
+                        a(href = "register") Register 
+                    li 
+                        a(href = "login") Login
