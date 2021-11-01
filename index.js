@@ -28,9 +28,9 @@ app.use(passport.session());
 //GET
 app.get('/', function(req, res) {
     if (req.user) {
-        res.redirect('/profile');
-    } else {
         res.render('home');
+    } else {
+        res.redirect('/login');
     }
 });
 

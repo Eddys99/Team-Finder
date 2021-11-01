@@ -1,11 +1,16 @@
-extends layouts/layout.pug 
+extends layouts/layout.pug
 
 block content
     header
         div#navBar
             nav
-                ul 
+                ul
                     li
-                        a(href = "register") Register 
-                    li 
-                        a(href = "login") Login
+                        a(href = "/logout") Log out
+                    li
+                        a(href = "/profile") Profile
+                    li
+                        a(href = "/hostGame") Host Team
+                    li
+                        a(href = "/searchGame") Search Team
+            h3(float = "left") #{user}
