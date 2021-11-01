@@ -89,3 +89,15 @@ ul {
     border-bottom: 1px solid white;
     text-align: left;
 }
+
+/* Host/Search Team */
+#searchContainer, #hostContainer {
+    margin: 25px 10px 25px 10px;
+    padding: 15px;
+    background-color: #242424;
+}
+
+#searchContainer h3, #hostContainer h3{
+    padding-bottom: 15px;
+    text-align: center;
+}

@@ -28,7 +28,7 @@ app.use(passport.session());
 //GET
 app.get('/', function(req, res) {
     if (req.user) {
-        res.render('home');
+        res.render('home', { user: req.user.username });
     } else {
         res.redirect('/login');
     }
@@ -76,6 +76,25 @@ app.get('/profile/edit', function(req, res) {
     if (req.user) {
         res.render('editProfile');
     } else {
+        req.flash("message", "Please log in or register");
+        res.redirect('/login');
+    }
+});
+
+app.get('/hostGame', function(req, res) {
+    if (req.user) {
+        res.render('hostGame', { user: req.user.username });
+    } else {
+        req.flash("message", "Please log in or register");
+        res.redirect('/login');
+    }
+});
+
+app.get('/searchGame', function(req, res) {
+    if (req.user) {
+        res.render('searchGame', { user: req.user.username });
+    } else {
+        req.flash("message", "Please log in or register");
         res.redirect('/login');
     }
 });
