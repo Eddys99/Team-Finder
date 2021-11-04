@@ -1,0 +1,27 @@
+extends layouts/layout.pug
+
+block content
+    header
+        div#navBar
+            nav
+                ul
+                    li
+                        a(href = "/profile") Back to profile
+            h3(float = "left") #{user}
+    div#editPosts
+        h2 Delete a post
+        form(action = "/profile/editPosts", method = "POST" autocomplete = "off")
+            input(type = "text", name = "id_of_post" placeholder = "Introduce your post ID")
+            button(type="submit").btn Delete
+    if messages.message != null
+        p(align = "center") #{messages.message}
+    if items != null
+        each item in items
+            div.teamPost
+                p Room id: #{item.id_post}
+                p Host: #{item.hoster}
+                p Division: #{item.hoster_division}
+                p Description: #{item.description}
+                p Game mode: #{item.game_type}
+    else
+        h3(align = "center") #{message}

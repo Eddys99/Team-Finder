@@ -56,7 +56,7 @@ app.get('/profile', function(req, res) {
         res.render('profile', { 
             user: req.user.username, 
             division: req.user.division,
-            lanes: req.user.main_lanes,
+            lanes: req.user.main_lane,
             champs: req.user.main_champs,
             language: req.user.spoken_language,
             region: req.user.region
@@ -68,9 +68,13 @@ app.get('/profile', function(req, res) {
 });
 
 app.get('/logout', function(req, res) {
-    req.logOut();
-    req.flash("message", "You logged out.");
-    res.redirect('/login');
+    if (req.user) {
+        req.logOut();
+        req.flash("message", "You logged out.");
+        res.redirect('/login');
+    } else {
+        res.redirect('/login');
+    }
 });
 
 app.get('/profile/edit', function(req, res) {
@@ -96,6 +100,24 @@ app.get('/searchGame', function(req, res) {
         res.render('searchGame', { user: req.user.username });
     } else {
         req.flash("message", "Please log in or register");
+        res.redirect('/login');
+    }
+});
+
+app.get('/profile/editPosts', function(req, res) {
+    if (req.user) {
+        const username = req.user.username;
+        client.query(`SELECT * FROM team_posts WHERE hoster = $1`, [username], function (err, results) {
+            if (err) {
+                throw err;
+            }
+            if (results.rows.length > 0) {
+                res.render('editPosts', { items: results.rows , user: req.user.username });
+            } else {
+                res.render('editPosts', { message: 'No posts yet' , user: req.user.username });
+            }
+        });
+    } else {
         res.redirect('/login');
     }
 });
@@ -145,13 +167,13 @@ app.post('/register', async function(req, res) {
 
 app.post('/profile/edit', function(req, res) {
     const username = req.user.username;
-    let { division, division_tier, main_lanes, main_champs, spoken_language, region} = req.body;
+    let { division, division_tier, main_lane, main_champs, spoken_language, region} = req.body;
     if (division != '' && division_tier != '') {
         division = division + ' ' + division_tier;
         client.query(`UPDATE users SET division = $1 WHERE username = $2 `, [division, username]);
     }
-    if (main_lanes != '') {
-        client.query(`UPDATE users SET main_lanes = $1 WHERE username = $2 `, [main_lanes, username]);
+    if (main_lane != '') {
+        client.query(`UPDATE users SET main_lane = $1 WHERE username = $2 `, [main_lane, username]);
     }
     if (main_champs != '') {
         client.query(`UPDATE users SET main_champs = $1 WHERE username = $2 `, [main_champs, username]);
@@ -166,15 +188,18 @@ app.post('/profile/edit', function(req, res) {
 });
 
 app.post('/hostGame', function(req, res) {
-    const username = req.user.username;
-    const host_division = req.user.division;
+    const hoster = req.user.username;
+    const hoster_lane = req.user.main_lane;
+    const hoster_region = req.user.region;
+    const hoster_division = req.user.division;
+    const hoster_spoken_language = req.user.spoken_language;
     const { game_type, game_description } = req.body;
-    if(!game_type) {
-        req.flash('message', 'Please select game mode');
+    if(!game_type || !hoster_lane || !hoster_region || !hoster_division || !hoster_spoken_language) {
+        req.flash('message', 'Please select game mode or complete your profile informations');
         res.redirect('/hostGame');
     } else {
-        client.query(`INSERT INTO team_posts(hoster, team_division, game_type, description)
-        VALUES ($1, $2, $3, $4)`, [username, host_division, game_type, game_description]);
+        client.query(`INSERT INTO team_posts(hoster, hoster_lane, hoster_region, hoster_division, hoster_spoken_language, description, game_type)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)`, [hoster, hoster_lane, hoster_region, hoster_division, hoster_spoken_language, game_description, game_type ]);
         req.flash('message', 'Done !');
         res.redirect('/hostGame');
     }
@@ -187,13 +212,12 @@ app.post('/searchGame', function(req, res) {
         req.flash('message', 'Please select your desired game type');
         res.redirect('/searchGame');
     } else if (game_type == 'Ranked') {
-        client.query(`SELECT * FROM team_posts WHERE team_division = $1 AND game_type = $2;`,[my_division, game_type], function(err, results) {
+        client.query(`SELECT * FROM team_posts WHERE hoster_division = $1 AND game_type = $2;`,[my_division, game_type], function(err, results) {
             if (err) {
                 throw err;
             }
             res.render('searchGame', { items: results.rows, user: req.user.username });
         });
-        console.log(1);
     } else if (game_type != 'Ranked' && game_type != '') {
         client.query(`SELECT * FROM team_posts WHERE game_type = $1;`,[game_type], function(err, results) {
             if (err) {
@@ -201,6 +225,29 @@ app.post('/searchGame', function(req, res) {
             }
             res.render('searchGame', { items: results.rows, user: req.user.username });
         });
+    }
+});
+
+app.post('/profile/editPosts', function(req, res) {
+    const username = req.user.username;
+    const { id_of_post } = req.body;
+    if (id_of_post != '') {
+        client.query(`SELECT * FROM team_posts WHERE id_post = $1 and hoster = $2`, [id_of_post, username], function(err, results) {
+            if (err) {
+                throw err;
+            }
+            if (results.rows.length > 0) {
+                client.query(`DELETE FROM team_posts WHERE id_post = $1`, [id_of_post]);
+                req.flash('message', 'Post deleted !')
+                res.redirect('/profile/editPosts');
+            } else {
+                req.flash('message', 'Post not found !');
+                res.redirect('/profile/editPosts');
+            }
+        });
+    } else {
+        req.flash('message', 'Please introduce the ID of post');
+        res.redirect('/profile/editPosts');
     }
 });
 

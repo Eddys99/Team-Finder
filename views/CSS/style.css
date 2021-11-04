@@ -18,7 +18,7 @@ body {
     text-align: center;
 }
 
-input[type=text], input[type=password] {
+input {
     padding: 15px;
     margin: 5px 0 22px 0;
     display: block;
@@ -133,7 +133,7 @@ ul {
     margin-top: 50px;
     display: table;
 }
-#searchContainer h2, #hostContainer h2, .teamPost h2 {
+#searchContainer h2, #hostContainer h2 {
     padding-bottom: 15px;
     border-bottom: 1px solid white;
     text-align: center;
@@ -147,4 +147,18 @@ ul {
     display: table;
     width: 95%;
     text-align: left;
+}
+
+#editPosts {
+    padding: 15px 250px 15 250px;
+    background-color: #242424;
+    margin: auto;
+    margin-top: 50px;
+    display: table;
+}
+
+#editPosts h2 {
+    padding-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid white;
 }

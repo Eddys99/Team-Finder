@@ -5,7 +5,7 @@ block hostOrSearch
         h2 Search a Team
         form(action = "/searchGame", method = "POST" autocomplete = "off")
             select(name = "game_type")
-                option(value = '') Select the type of game
+                option(value = '') Select game type
                 option Normal
                 option Ranked
                 option Clash
@@ -18,8 +18,7 @@ block hostOrSearch
             div.teamPost
                 p Room id: #{item.id_post}
                 p Host: #{item.hoster}
-                p Division: #{item.team_division}
+                p Hoster lane: #{item.hoster_lane}
+                p Division: #{item.hoster_division}
                 p Description: #{item.description}
                 p Game mode: #{item.game_type}
-    else
-        h2(align = 'center') No teams found
