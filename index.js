@@ -165,7 +165,7 @@ app.post('/profile/edit', function(req, res) {
     res.redirect('/profile');
 });
 
-app.post('/hostGame', async function(req, res) {
+app.post('/hostGame', function(req, res) {
     const username = req.user.username;
     const host_division = req.user.division;
     const { game_type, game_description } = req.body;
