@@ -5,11 +5,17 @@ body {
     color: white;
 }
 
-/* Forms / inputs / buttons  */
+/* Forms / inputs */
 #registerForm, #loginForm, #editForm {
+    padding: 15px 250px 15 250px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 50px;
     display: table;
+}
+
+#registerForm h2, #loginForm h2, #editForm h2 {
+    padding-bottom: 15px;
+    text-align: center;
 }
 
 input[type=text], input[type=password] {
@@ -17,10 +23,40 @@ input[type=text], input[type=password] {
     margin: 5px 0 22px 0;
     display: block;
     border: none;
+    border-bottom: 1px solid #444444;
     background: #191919;
-    border-bottom: 1px solid rgb(68, 68, 68);
     color: white;
     outline-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+select {
+    padding: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin: 5px 0 22px 0;
+    display: block;
+    background: #191919;
+    color: white;
+    outline-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    padding-bottom: 50px;
+    padding-right: 100px;
+    margin: 5px 0 22px 0;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #444444;
+    background: #191919;
+    color: white;
+    outline-width: 0;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 a {
@@ -44,7 +80,6 @@ header {
     padding: 8px;
     text-decoration: none;
     color: white;
-
     background-color: blueviolet;
     padding: 10px 15px;
     padding-right: 25px;
@@ -92,12 +127,24 @@ ul {
 
 /* Host/Search Team */
 #searchContainer, #hostContainer {
-    margin: 25px 10px 25px 10px;
-    padding: 15px;
+    padding: 15px 250px 15 250px;
     background-color: #242424;
+    margin: auto;
+    margin-top: 50px;
+    display: table;
+}
+#searchContainer h2, #hostContainer h2, .teamPost h2 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid white;
+    text-align: center;
 }
 
-#searchContainer h3, #hostContainer h3{
-    padding-bottom: 15px;
-    text-align: center;
+/* Team Posts */
+.teamPost {
+    padding: 20px;
+    background-color: #242424;
+    margin: 50px 15px 50px 15px;
+    display: table;
+    width: 95%;
+    text-align: left;
 }

@@ -2,4 +2,17 @@ extends home.pug
 
 block hostOrSearch
     div#hostContainer
-        h3 Host a Team
+        h2 Host a Team
+        form(action = "/hostGame", method = "POST", autocomplete = "off")
+            div.errorWarnings
+                if messages.message != null
+                    ul 
+                        li= messages.message
+            select(name = "game_type")
+                option(value = '') Select game type
+                option Normal
+                option Ranked
+                option Clash
+                option Custom
+            textarea(name = "game_description", placeholder = "Description")
+            button(type = "submit", class = "btn") Submit host settings

@@ -20,6 +20,7 @@ app.use(flash());
 
 //PASSPORT
 const initializePassport = require('./passportConfig');
+const { render } = require('pug');
 initializePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
@@ -113,7 +114,7 @@ app.post('/register', async function(req, res) {
         errors.push({ message: "Passwords do not match." });
     }
     if (errors.length > 0) {
-        res.render('register', { errors: errors  });
+        res.render('register', { errors });
     } else {
         let hashedPassword = await bcrypt.hash(password, 10);
         client.query(`SELECT * FROM users WHERE email = $1 OR username = $2`, [email, username],
@@ -143,9 +144,10 @@ app.post('/register', async function(req, res) {
 });
 
 app.post('/profile/edit', function(req, res) {
-    let username = req.user.username;
-    let { division, main_lanes, main_champs, spoken_language, region} = req.body;
-    if (division != '') {
+    const username = req.user.username;
+    let { division, division_tier, main_lanes, main_champs, spoken_language, region} = req.body;
+    if (division != '' && division_tier != '') {
+        division = division + ' ' + division_tier;
         client.query(`UPDATE users SET division = $1 WHERE username = $2 `, [division, username]);
     }
     if (main_lanes != '') {
@@ -159,6 +161,46 @@ app.post('/profile/edit', function(req, res) {
     }
     if (region != '') {
         client.query(`UPDATE users SET region = $1 WHERE username = $2 `, [region, username]);
+    }
+    res.redirect('/profile');
+});
+
+app.post('/hostGame', async function(req, res) {
+    const username = req.user.username;
+    const host_division = req.user.division;
+    const { game_type, game_description } = req.body;
+    if(!game_type) {
+        req.flash('message', 'Please select game mode');
+        res.redirect('/hostGame');
+    } else {
+        client.query(`INSERT INTO team_posts(hoster, team_division, game_type, description)
+        VALUES ($1, $2, $3, $4)`, [username, host_division, game_type, game_description]);
+        req.flash('message', 'Done !');
+        res.redirect('/hostGame');
+    }
+});
+
+app.post('/searchGame', function(req, res) {
+    const my_division = req.user.division;
+    const { game_type } = req.body;
+    if (!game_type) {
+        req.flash('message', 'Please select your desired game type');
+        res.redirect('/searchGame');
+    } else if (game_type == 'Ranked') {
+        client.query(`SELECT * FROM team_posts WHERE team_division = $1 AND game_type = $2;`,[my_division, game_type], function(err, results) {
+            if (err) {
+                throw err;
+            }
+            res.render('searchGame', { items: results.rows, user: req.user.username });
+        });
+        console.log(1);
+    } else if (game_type != 'Ranked' && game_type != '') {
+        client.query(`SELECT * FROM team_posts WHERE game_type = $1;`,[game_type], function(err, results) {
+            if (err) {
+                throw err;
+            }
+            res.render('searchGame', { items: results.rows, user: req.user.username });
+        });
     }
 });
 

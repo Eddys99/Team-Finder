@@ -10,9 +10,41 @@ block content
     div#editForm
         h2 Edit profile
         form(action = "/profile/edit", method = "POST" autocomplete = "off")
-            input(type = "text", name = "division", placeholder = "Division")
-            input(type = "text", name = "main_lanes", placeholder = "Main lane(s)")
+            select(name = "division")
+                option(value = '') Select division
+                option Iron
+                option Bronze
+                option Gold
+                option Platinum
+                option Diamond
+                option Master
+                option Grandmaster
+                option Challenger
+            select(name = "division_tier")
+                option(value = '') Select tier divizion
+                option 1
+                option 2
+                option 3
+                option 4
+            select(name = "main_lanes")
+                option(value = '') Select your main lane
+                option Top
+                option Jungle
+                option Mid
+                option ADC
+                option Support
             input(type = "text", name = "main_champs", placeholder = "Main Champion(s)")
-            input(type = "text", name = "spoken_language", placeholder = "Spoken language(s)")
-            input(type = "text", name = "region", placeholder = "Region")
+            select(name = "spoken_language")
+                option(value = '') Select your native language
+                option Chinese
+                option English
+                option Japanese
+                option Romanian
+                option Russian
+            select(name = "region")
+                option(value = '') Select your region
+                option EUNE
+                option EUW
+                option NA
+                option Oceania
             button(type = "submit", class = "btn") Submit edit
