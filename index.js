@@ -207,23 +207,33 @@ app.post('/hostGame', function(req, res) {
 
 app.post('/searchGame', function(req, res) {
     const my_division = req.user.division;
+    const my_language = req.user.spoken_language;
+    const my_region = req.user.region;
     const { game_type } = req.body;
     if (!game_type) {
         req.flash('message', 'Please select your desired game type');
         res.redirect('/searchGame');
     } else if (game_type == 'Ranked') {
-        client.query(`SELECT * FROM team_posts WHERE hoster_division = $1 AND game_type = $2;`,[my_division, game_type], function(err, results) {
+        client.query(`SELECT * FROM team_posts WHERE hoster_division = $1 AND game_type = $2 AND hoster_spoken_language = $3 AND hoster_region = $4;`,[my_division, game_type, my_language, my_region], function(err, results) {
             if (err) {
                 throw err;
             }
-            res.render('searchGame', { items: results.rows, user: req.user.username });
+            if (results.rows.length > 0) {
+                res.render('searchGame', { items: results.rows, user: req.user.username });
+            } else {
+                res.render('searchGame', { message: "No games found" });
+            }
         });
     } else if (game_type != 'Ranked' && game_type != '') {
-        client.query(`SELECT * FROM team_posts WHERE game_type = $1;`,[game_type], function(err, results) {
+        client.query(`SELECT * FROM team_posts WHERE game_type = $1 AND hoster_spoken_language = $2 AND hoster_region = $3;`,[game_type, my_language, my_region], function(err, results) {
             if (err) {
                 throw err;
             }
-            res.render('searchGame', { items: results.rows, user: req.user.username });
+            if (results.rows.length > 0) {
+                res.render('searchGame', { items: results.rows, user: req.user.username });
+            } else {
+                res.render('searchGame', { message: "No games found" });
+            }
         });
     }
 });

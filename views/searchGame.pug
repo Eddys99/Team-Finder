@@ -13,14 +13,14 @@ block hostOrSearch
             button(type = "submit" class = "btn") Search
     if messages.message != null
         p(align = "center") #{messages.message}
+    if message != null
+        p(align = "center") #{message}
     if items != null
         each item in items
             div.teamPost
                 p Room id: #{item.id_post}
                 p Host: #{item.hoster}
                 p Hoster lane: #{item.hoster_lane}
-                p Region: #{item.hoster_region}
                 p Division: #{item.hoster_division}
-                p Spoken language: #{item.hoster_spoken_language}
                 p Description: #{item.description}
                 p Game mode: #{item.game_type}
