@@ -4,8 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-const { client } = require('./database/db');
-const bcrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('express-flash');
 const passport = require('passport');
