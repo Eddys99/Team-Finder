@@ -9,7 +9,7 @@ const flash = require('express-flash');
 const passport = require('passport');
 
 var home = require('./routes/home');
-var register = require('./routes/register');
+var register = require('./routes/validator');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 var editPosts = require('./routes/editPosts');
