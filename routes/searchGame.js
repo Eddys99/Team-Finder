@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { client } = require('../database/db');
+var listOfGames = require('../database/listOfGamesPosts');
 
 router.get('/', function(req, res) {
   if (req.user) {
@@ -12,36 +12,22 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  const my_division = req.user.division;
-  const my_language = req.user.spoken_language;
-  const my_region = req.user.region;
-  const { game_type } = req.body;
-  if (!game_type) {
-      req.flash('message', 'Please select your desired game type');
-      res.redirect('/searchGame');
-  } else if (game_type == 'Ranked') {
-      client.query(`SELECT * FROM team_posts WHERE hoster_division = $1 AND game_type = $2 AND hoster_spoken_language = $3 AND hoster_region = $4;`,[my_division, game_type, my_language, my_region], function(err, results) {
-          if (err) {
-              throw err;
-          }
-          if (results.rows.length > 0) {
-              res.render('searchGame', { items: results.rows, user: req.user.username });
-          } else {
-              res.render('searchGame', { message: "No games found" });
-          }
-      });
-  } else if (game_type != 'Ranked' && game_type != '') {
-      client.query(`SELECT * FROM team_posts WHERE game_type = $1 AND hoster_spoken_language = $2 AND hoster_region = $3;`,[game_type, my_language, my_region], function(err, results) {
-          if (err) {
-              throw err;
-          }
-          if (results.rows.length > 0) {
-              res.render('searchGame', { items: results.rows, user: req.user.username });
-          } else {
-              res.render('searchGame', { message: "No games found" });
-          }
-      });
-  }
+    const my_division = req.user.division;
+    const my_language = req.user.spoken_language;
+    const my_region = req.user.region;
+    const { game_type } = req.body;
+    if (!game_type) {
+        req.flash('message', 'Please select your desired game type');
+        res.redirect('/searchGame');
+    } else {
+        listOfGames(my_division, my_language, my_region, game_type).then((response) => {
+            if (response == 0) {
+                res.render('searchGame', { message: "No games found", user: req.user.username });
+            } else {
+                res.render('searchGame', { items: response, user: req.user.username });
+            }
+        });
+    }
 });
 
 module.exports = router;
