@@ -12,11 +12,8 @@ var home = require('./routes/home');
 var register = require('./routes/register');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
-var editPosts = require('./routes/editPosts');
-var hostGame = require('./routes/hostGame');
 var profile = require('./routes/profile');
-var profileEdit = require('./routes/profileEdit');
-var searchGame = require('./routes/searchGame');
+var userProfile = require('./routes/userProfile');
 
 var app = express();
 
@@ -30,7 +27,6 @@ app.use(flash());
 
 //PASSPORT
 const initializePassport = require('./passportConfig');
-const { render } = require('pug');
 initializePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,10 +46,7 @@ app.use('/register', register);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/profile', profile);
-app.use('/profile/edit', profileEdit);
-app.use('/hostGame', hostGame);
-app.use('/searchGame', searchGame);
-app.use('/profile/editPosts', editPosts);
+app.use('/user', userProfile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

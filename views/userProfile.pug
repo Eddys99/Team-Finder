@@ -1,0 +1,25 @@
+extends layouts/layout.pug
+
+block content
+    header
+        div#navBar
+            nav
+                ul
+                    li
+                        a(href = "/logout") Log out
+                    li
+                        a(href = "/") Home
+                    li
+                        a(href = "/profile") Profile
+            h3(float = "left") #{myUser}
+    if reqUser != 0
+        each field in reqUser
+            div#profileContent
+                h3 Username: #{field.username}
+                h3 Actual Division (Solo / Duo rank): #{field.division}
+                h3 Main lane: #{field.main_lane}
+                h3 Main Champion(s): #{field.main_champs}
+                h3 Spoken language: #{field.spoken_language}
+                h3 Region: #{field.region}
+    else 
+        h2(align = "center") This user doesn't exists.
