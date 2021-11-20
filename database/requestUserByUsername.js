@@ -1,8 +1,8 @@
 const { client } = require('./db');
 
-function getUserById(id) {
+function getUserByUsername(username) {
     return new Promise(function(resolve, reject) {
-        client.query(`SELECT * FROM users WHERE id = ${id}`, function (err, results) {
+        client.query(`SELECT * FROM users WHERE username = $1`, [username], function (err, results) {
             if (err) {
                 throw err;
             }
@@ -15,4 +15,4 @@ function getUserById(id) {
     });
 }
 
-module.exports = getUserById;
+module.exports = getUserByUsername;

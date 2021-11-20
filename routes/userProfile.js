@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var getUser = require('../database/requestUserById');
+var getUser = require('../database/requestUserByUsername');
 
-router.get('/:id', function(req, res) {
+router.get('/:username', function(req, res) {
     if (req.user) {
-        let id = req.params.id;
-        getUser(id).then((response) => {
+        let username = req.params.username;
+        getUser(username).then((response) => {
             res.render('userProfile', { reqUser: response, myUser: req.user.username });
         });
     } else {

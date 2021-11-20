@@ -149,6 +149,15 @@ ul {
     text-align: left;
 }
 
+.teamPost #host a {
+    text-decoration: none;
+    color: white;
+}
+
+.teamPost #host a:hover {
+    color: blueviolet;
+}
+
 #editPosts {
     padding: 15px 250px 15 250px;
     background-color: #242424;

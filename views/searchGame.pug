@@ -19,7 +19,8 @@ block hostOrSearch
         each item in items
             div.teamPost
                 p Room id: #{item.id_post}
-                p Host: #{item.hoster}
+                p#host Host: 
+                    a(href = '/user/' + item.hoster) #{item.hoster}
                 p Hoster lane: #{item.hoster_lane}
                 p Division: #{item.hoster_division}
                 p Description: #{item.description}
