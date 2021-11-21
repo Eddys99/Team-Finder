@@ -1,4 +1,4 @@
-const { client } = require('./db');
+const { client } = require('../db');
 
 function getListOfGames(my_username, my_division, my_language, my_region, game_type) {
     var queryString;

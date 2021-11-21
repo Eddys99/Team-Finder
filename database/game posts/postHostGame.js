@@ -1,4 +1,4 @@
-const { client } = require('./db');
+const { client } = require('../db');
 
 function postAnnounce(hoster, hoster_lane, hoster_region, hoster_division, hoster_spoken_language, game_type, game_description) {
     client.query(`INSERT INTO team_posts(hoster, hoster_lane, hoster_region, hoster_division, hoster_spoken_language, description, game_type)

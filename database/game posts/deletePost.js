@@ -1,4 +1,4 @@
-const { client } = require('./db');
+const { client } = require('../db');
 
 function deleteThisPost(id_of_post, username) {
     return new Promise(function(resolve, reject) {

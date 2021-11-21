@@ -1,4 +1,4 @@
-var updateField = require('../database/profileFieldsUpdate');
+var updateField = require('../../database/myUserProfile/profileFieldsUpdate');
 
 function validateFields(division, division_tier, main_lane, main_champs, spoken_language, region, username) {
     if (division != '' && division_tier != '') {

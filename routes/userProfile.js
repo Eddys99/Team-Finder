@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var getUser = require('../database/requestUserByUsername');
+var getUser = require('../database/users profile/requestUserByUsername');
 
 router.get('/:username', function(req, res) {
     if (req.user) {
