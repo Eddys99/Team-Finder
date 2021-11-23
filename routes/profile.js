@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var getMyPosts = require('../database/game posts/userPosts');
-var deleteThisPost = require('../database/game posts/deletePost');
-var profileFieldsValidation = require('../validator/profile/profileFieldsValidation');
+var getMyPosts = require('../database/gamePosts').getUserPosts;
+var deletePost = require('../database/gamePosts').deleteThisPost;
+var profileFieldsValidation = require('../validator/profileFieldsValidation');
 
 router.get('/', function(req, res) {
     if (req.user) {
@@ -57,7 +57,7 @@ router.post('/editPosts', function(req, res) {
     const username = req.user.username;
     const { id_of_post } = req.body;
     if (id_of_post != '') {
-        deleteThisPost(id_of_post, username).then((response) => {
+        deletePost(id_of_post, username).then((response) => {
             if (response == 1) {
                 req.flash('message', 'Post deleted !')
                 res.redirect('/profile/editPosts');

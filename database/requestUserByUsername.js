@@ -1,4 +1,4 @@
-const { client } = require('../db');
+const { client } = require('./db');
 
 function getUserByUsername(username) {
     return new Promise(function(resolve, reject) {

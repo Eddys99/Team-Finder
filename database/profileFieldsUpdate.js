@@ -1,4 +1,4 @@
-const { client } = require('../db');
+const { client } = require('./db');
 
 function updateProfileFields(field, fieldValue, username) {
     client.query(`UPDATE users SET ${field} = $1 WHERE username = $2 `, [fieldValue, username],

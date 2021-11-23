@@ -1,4 +1,4 @@
-const { client } = require('../../database/db');
+const { client } = require('../database/db');
 
 function checkFields(email, username, password, password2) {
     let errors = [];

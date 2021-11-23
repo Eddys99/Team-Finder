@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var checkFields = require('../validator/register/registrationFieldsCheck');
-var registrationAccount = require('../database/register/registrationAccountStore');
+var checkFields = require('../validator/registrationFieldsCheck');
+var registrationAccount = require('../database/registrationAccountStore');
 const bcrypt = require('bcrypt');
 
 router.get('/', function(req, res) {
