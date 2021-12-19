@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var getMyPosts = require('../database/gamePosts').getUserPosts;
-var deletePost = require('../database/gamePosts').deleteThisPost;
-var profileFieldsValidation = require('../validator/profileFieldsValidation');
+var getMyPosts = require('../database/posts').getUserPosts;
+var deletePost = require('../database/posts').deleteThisPost;
+var profileFieldsValidation = require('../validator/profile');
 
 router.get('/', function(req, res) {
     if (req.user) {

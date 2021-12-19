@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var listOfGames = require('../database/gamePosts').getListOfGames;
-var postAnnounceFieldsValidation = require('../validator/postAnnounceFields');
-var postGameAnnounce = require('../database/gamePosts').postAnnounce;
+var listOfGames = require('../database/posts').getListOfGames;
+var postAnnounceFieldsValidation = require('../validator/posts');
+var postGameAnnounce = require('../database/posts').postAnnounce;
 
 router.get('/', function(req, res) {
   if (req.user) {
