@@ -8,6 +8,7 @@ const session = require('express-session');
 const flash = require('express-flash');
 const passport = require('passport');
 
+// Routes
 var home = require('./routes/home');
 var register = require('./routes/register');
 var login = require('./routes/login');
@@ -18,7 +19,7 @@ var userProfile = require('./routes/userProfile');
 var app = express();
 
 app.use(session({
-  secret: 'secret1',
+  secret: 'secret',
   resave: false,
   saveUninitialized: false
 }));
