@@ -1,5 +1,3 @@
-const { client } = require('../database/db');
-
 function checkFields(email, username, password, password2) {
     let errors = [];
     if (!email || !username || !password || !password2) {
